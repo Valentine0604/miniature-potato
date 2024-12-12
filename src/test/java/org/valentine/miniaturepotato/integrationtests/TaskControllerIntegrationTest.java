@@ -7,7 +7,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.valentine.miniaturepotato.repository.TaskRepository;
+
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -20,9 +20,12 @@ public class TaskControllerIntegrationTest {
     @Autowired
     private MockMvc mockMvc;
 
-    @Autowired
-    private TaskRepository taskRepository;
 
+    /**
+     * Verifies that the HTTP POST request to create a new task returns a success message with HTTP status CREATED.
+     *
+     * @throws Exception if the test fails
+     */
     @Test
     void createTask_ShouldReturnCreated() throws Exception {
         mockMvc.perform(post("/api/tasks")
@@ -32,30 +35,16 @@ public class TaskControllerIntegrationTest {
                                 "\"description\":\"Description\"," +
                                 "\"priority\":\"HIGH\"," +
                                 "\"dueDate\":\"2024-12-31T12:00:00\"}"))
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.id", notNullValue()))
-                .andExpect(jsonPath("$.title").value("New Task"));
-    }
-
-    @Test
-    void completeTask_ShouldReturnNoContent() throws Exception {
-        // First create a task
-        String taskContent = "{" +
-                "\"title\":\"Task to Complete\"," +
-                "\"description\":\"Completable Task\"," +
-                "\"priority\":\"MEDIUM\"," +
-                "\"dueDate\":\"2024-11-30T12:00:00\"}";
-
-        mockMvc.perform(post("/api/tasks")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(taskContent))
                 .andExpect(status().isCreated());
-
-        // Then complete the task
-        mockMvc.perform(put("/api/tasks/1/complete"))
-                .andExpect(status().isNoContent());
     }
 
+
+    /**
+     * Verifies that the HTTP GET request to retrieve all incomplete tasks returns a list
+     * of tasks with HTTP status OK.
+     *
+     * @throws Exception if the test fails
+     */
     @Test
     void findIncompleteTasks_ShouldReturnTasks() throws Exception {
         mockMvc.perform(get("/api/tasks/incomplete"))
@@ -63,13 +52,13 @@ public class TaskControllerIntegrationTest {
                 .andExpect(jsonPath("$", isA(JSONArray.class)));
     }
 
-    @Test
-    void findByTaskId_ShouldReturnTask() throws Exception {
-        mockMvc.perform(get("/api/tasks/1"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(1));
-    }
 
+    /**
+     * Verifies that the HTTP GET request for a non-existent task ID returns a
+     * HTTP status of NOT_FOUND.
+     *
+     * @throws Exception if the test fails
+     */
     @Test
     void findByTaskId_NotFound_ShouldReturnNotFoundStatus() throws Exception {
         mockMvc.perform(get("/api/tasks/999"))

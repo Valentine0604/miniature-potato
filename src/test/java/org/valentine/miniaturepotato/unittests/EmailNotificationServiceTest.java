@@ -28,6 +28,10 @@ public class EmailNotificationServiceTest {
 
     private Task testTask;
 
+    /**
+     * Sets up the test class by initializing the test task and creating mocks
+     * for the email sender and email content builder.
+     */
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
@@ -43,34 +47,45 @@ public class EmailNotificationServiceTest {
         );
     }
 
+    /**
+     * Verifies that the task creation notification email is built and sent
+     * successfully.
+     * <p>
+     * This test verifies that the email content is built using the
+     * {@link EmailContentBuilder} and that the email is sent using the
+     * {@link EmailSender}.
+     */
     @Test
     void sendTaskCreationNotification_ShouldBuildAndSendEmail() {
-        // Arrange
         String expectedContent = "Email content for task creation.";
         when(emailContentBuilder.buildTaskCreationContent(testTask)).thenReturn(expectedContent);
 
-        // Act
         emailNotificationService.sendTaskCreationNotification(testTask);
 
-        // Assert
         verify(emailContentBuilder, times(1)).buildTaskCreationContent(testTask);
         verify(emailSender, times(1)).sendEmail(
-                eq("ewecia.s@gmail.com"), // Using the hardcoded email
+                eq("ewecia.s@gmail.com"),
                 eq("New Task Created: " + testTask.getTitle()),
                 eq(expectedContent)
         );
     }
 
+    /**
+     * Verifies that the task reminder notification email is built and sent
+     * successfully.
+     * <p>
+     * This test checks if the email content is constructed using the
+     * {@link EmailContentBuilder} and ensures the email is dispatched using the
+     * {@link EmailSender}. It confirms that the correct email content and
+     * subject are used when sending the reminder notification.
+     */
     @Test
     void sendTaskReminderNotification_ShouldBuildAndSendEmail() {
-        // Arrange
         String expectedContent = "Email content for task reminder.";
         when(emailContentBuilder.buildTaskReminderContent(testTask)).thenReturn(expectedContent);
 
-        // Act
         emailNotificationService.sendTaskReminderNotification(testTask);
 
-        // Assert
         verify(emailContentBuilder, times(1)).buildTaskReminderContent(testTask);
         verify(emailSender, times(1)).sendEmail(
                 eq("ewecia.s@gmail.com"), // Using the hardcoded email

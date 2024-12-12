@@ -2,19 +2,17 @@ package org.valentine.miniaturepotato.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.valentine.miniaturepotato.exception.TaskAlreadyCompleted;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "tasks")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,8 +38,21 @@ public class Task {
     @Column(name = "is_completed")
     private boolean completed;
 
+    /**
+     * Automatically sets createdAt to the current time when the task is being created.
+     */
     @PrePersist
     protected void onCreate(){
         this.createdAt = LocalDateTime.now();
+    }
+
+    /**
+     * Marks the task as completed.
+     *
+     * @throws TaskAlreadyCompleted if the task is already marked as completed
+     */
+    public void complete() {
+        if (this.completed) throw new TaskAlreadyCompleted(this.id);
+        this.completed = true;
     }
 }

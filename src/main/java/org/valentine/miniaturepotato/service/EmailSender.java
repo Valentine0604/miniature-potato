@@ -1,6 +1,6 @@
 package org.valentine.miniaturepotato.service;
 
-import lombok.AllArgsConstructor;
+
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;

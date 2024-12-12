@@ -12,6 +12,12 @@ public class EmailNotificationService implements NotificationService {
     private final EmailContentBuilder emailContentBuilder;
 
 
+    /**
+     * Sends a notification email for task creation.
+     *
+     * @param task The task for which the creation notification is being sent.
+     *             The email will contain the task details such as title, description, priority, and due date.
+     */
     @Override
     public void sendTaskCreationNotification(Task task) {
         //todo: replace with actual email
@@ -26,6 +32,12 @@ public class EmailNotificationService implements NotificationService {
         );
     }
 
+    /**
+     * Sends a reminder email for a task.
+     *
+     * @param task The task for which the reminder notification is being sent.
+     *             The email will contain the task details such as title, description, priority, and due date.
+     */
     @Override
     public void sendTaskReminderNotification(Task task) {
         //todo: replace with actual email
