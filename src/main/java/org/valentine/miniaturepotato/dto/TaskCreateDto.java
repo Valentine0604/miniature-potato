@@ -7,7 +7,6 @@ import lombok.Data;
 import org.valentine.miniaturepotato.entity.Priority;
 import org.valentine.miniaturepotato.entity.Task;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data

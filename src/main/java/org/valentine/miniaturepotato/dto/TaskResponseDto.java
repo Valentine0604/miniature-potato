@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class TaskResponseDto {
 
-    private String taskId;
+    private long taskId;
     private String title;
     private String description;
     private LocalDateTime createdAt;
