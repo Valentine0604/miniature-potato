@@ -27,7 +27,7 @@ public class TaskController {
      * @param taskCreateDto the DTO containing task creation data
      * @param bindingResult the result of validation performed on the taskCreateDto
      * @return a ResponseEntity containing a success message and HTTP status CREATED if the task
-     *         is created successfully, or an error message and HTTP status BAD_REQUEST if validation fails
+     * is created successfully, or an error message and HTTP status BAD_REQUEST if validation fails
      */
     @PostMapping
     public ResponseEntity<String> createTask(@Valid @RequestBody TaskCreateDto taskCreateDto, BindingResult bindingResult) {
@@ -47,7 +47,7 @@ public class TaskController {
      *
      * @param taskId the ID of the task to mark as completed
      * @return a ResponseEntity containing the completed task as a TaskResponseDto and HTTP status OK if the task is updated
-     *         successfully, or an error message and HTTP status NOT_FOUND if the task ID is invalid
+     * successfully, or an error message and HTTP status NOT_FOUND if the task ID is invalid
      */
     @PutMapping("/{taskId}/complete")
     public ResponseEntity<TaskResponseDto> completeTask(@PathVariable long taskId) {
@@ -71,11 +71,21 @@ public class TaskController {
      *
      * @param taskId the ID of the task to retrieve
      * @return a ResponseEntity containing the task as a TaskResponseDto and HTTP status OK if the task is found,
-     *         or an error message and HTTP status NOT_FOUND if the task ID is invalid
+     * or an error message and HTTP status NOT_FOUND if the task ID is invalid
      */
     @GetMapping("/{taskId}")
     public TaskResponseDto getTaskById(@PathVariable long taskId) {
         return taskService.findByTaskId(taskId);
+    }
+
+    /**
+     * Handles the HTTP GET request to retrieve all tasks.
+     *
+     * @return a list of all tasks
+     */
+    @GetMapping
+    public List<Task> getAllTasks() {
+        return taskService.findAllTasks();
     }
 }
 

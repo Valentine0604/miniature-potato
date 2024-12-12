@@ -1,7 +1,6 @@
 package org.valentine.miniaturepotato.service;
 
 
-
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
@@ -29,7 +28,7 @@ public class EmailSender {
      * @param body    Email body content
      */
 
-    public void sendEmail(String to, String subject, String body){
+    public void sendEmail(String to, String subject, String body) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(fromEmail);
         message.setTo(to);

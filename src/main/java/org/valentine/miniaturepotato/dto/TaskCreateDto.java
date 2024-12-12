@@ -24,14 +24,14 @@ public class TaskCreateDto {
     @FutureOrPresent(message = "Date must be in the future or present")
     private LocalDateTime dueDate;
 
-    private Priority priority = Priority.LOW;
+    private Priority priority;
 
     /**
      * Converts this TaskCreateDto to a Task entity.
      *
      * @return a new Task entity with fields populated from this DTO.
      */
-    public Task toEntity(){
+    public Task toEntity() {
         return Task.builder()
                 .title(this.title)
                 .description(this.description)

@@ -2,7 +2,10 @@ package org.valentine.miniaturepotato.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.valentine.miniaturepotato.exception.TaskAlreadyCompleted;
 
 import java.time.LocalDateTime;
@@ -42,7 +45,7 @@ public class Task {
      * Automatically sets createdAt to the current time when the task is being created.
      */
     @PrePersist
-    protected void onCreate(){
+    protected void onCreate() {
         this.createdAt = LocalDateTime.now();
     }
 

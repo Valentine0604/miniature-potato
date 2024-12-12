@@ -29,7 +29,7 @@ public class TaskResponseDto {
      * @param task the task to be mapped
      * @return the mapped task response DTO
      */
-    public static TaskResponseDto fromEntity(Task task){
+    public static TaskResponseDto fromEntity(Task task) {
         return TaskResponseDto.builder()
                 .taskId(task.getId())
                 .title(task.getTitle())
