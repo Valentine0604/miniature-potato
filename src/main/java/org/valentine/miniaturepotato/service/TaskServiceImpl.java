@@ -1,5 +1,6 @@
 package org.valentine.miniaturepotato.service;
 
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.valentine.miniaturepotato.entity.Task;
 import org.valentine.miniaturepotato.exception.TaskNotFoundException;
@@ -9,22 +10,19 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class TaskServiceImpl implements TaskService {
     private final TaskRepository taskRepository;
     private final NotificationService notificationService;
 
-    public TaskServiceImpl(TaskRepository taskRepository,
-                           NotificationService notificationService) {
-        this.taskRepository = taskRepository;
-        this.notificationService = notificationService;
-    }
 
     @Override
     public Task createTask(Task task) {
-        task.setCreatedAt(LocalDateTime.now());
         task.setCompleted(false);
         notificationService.sendTaskCreationNotification(task);
-        return taskRepository.save(task);
+        Task savedTask = taskRepository.save(task);
+
+        return savedTask;
     }
 
     @Override
