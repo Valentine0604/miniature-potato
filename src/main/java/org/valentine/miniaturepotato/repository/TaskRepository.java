@@ -8,7 +8,7 @@ import org.valentine.miniaturepotato.entity.Task;
 import java.util.List;
 
 @Repository
-public interface TaskRepository extends JpaRepository<Task, String> {
+public interface TaskRepository extends JpaRepository<Task, Long> {
     List<Task> findByCompletedFalse();
     List<Task> findByPriority(Priority priority);
 }

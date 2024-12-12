@@ -2,6 +2,8 @@ package org.valentine.miniaturepotato.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.valentine.miniaturepotato.dto.TaskResponseDto;
+import org.valentine.miniaturepotato.entity.Priority;
 import org.valentine.miniaturepotato.entity.Task;
 import org.valentine.miniaturepotato.exception.TaskNotFoundException;
 import org.valentine.miniaturepotato.repository.TaskRepository;
@@ -26,7 +28,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public void completeTask(String taskId) {
+    public void completeTask(long taskId) {
         Task task = taskRepository.findById(taskId)
                 .orElseThrow(() -> new TaskNotFoundException(taskId));
         task.setCompleted(true);
@@ -37,5 +39,13 @@ public class TaskServiceImpl implements TaskService {
     public List<Task> findIncompleteTasks() {
         return taskRepository.findByCompletedFalse();
     }
+
+    public TaskResponseDto findByTaskId(long taskId) {
+        Task task = taskRepository.findById(taskId)
+                .orElseThrow(() -> new TaskNotFoundException(taskId));
+        return TaskResponseDto.fromEntity(task);
+    }
+
+
 }
 
