@@ -68,6 +68,19 @@ public class TaskServiceImpl implements TaskService {
         return TaskResponseDto.fromEntity(task);
     }
 
+    /**
+     * Retrieves all tasks.
+     *
+     * @return a list of all tasks
+     * @throws TaskNotFoundException if no tasks exist
+     */
+    @Override
+    public List<Task> findAllTasks() {
+        List <Task> tasks = taskRepository.findAll();
+        if (tasks.isEmpty()) throw new TaskNotFoundException();
+        return tasks;
+    }
+
 
 }
 
