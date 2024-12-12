@@ -3,6 +3,7 @@ package org.valentine.miniaturepotato.dto;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.valentine.miniaturepotato.entity.Priority;
 import org.valentine.miniaturepotato.entity.Task;
@@ -10,6 +11,7 @@ import org.valentine.miniaturepotato.entity.Task;
 import java.time.LocalDateTime;
 
 @Data
+@AllArgsConstructor
 public class TaskCreateDto {
 
     @NotBlank(message = "Title is required")
