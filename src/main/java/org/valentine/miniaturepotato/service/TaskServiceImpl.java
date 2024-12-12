@@ -46,13 +46,16 @@ public class TaskServiceImpl implements TaskService {
 
 
     /**
-     * Retrieves all incomplete tasks.
+     * Retrieves a list of incomplete tasks.
      *
-     * @return a list of incomplete tasks
+     * @return a list of tasks that have not been completed
+     * @throws TaskNotFoundException if no incomplete tasks exist
      */
     @Override
     public List<Task> findIncompleteTasks() {
-        return taskRepository.findByCompletedFalse();
+        List <Task> incompleteTasks = taskRepository.findByCompletedFalse();
+        if (incompleteTasks.isEmpty()) throw new TaskNotFoundException();
+        return incompleteTasks;
     }
 
     /**
