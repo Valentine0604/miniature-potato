@@ -20,7 +20,6 @@ public class EmailNotificationService implements NotificationService {
      */
     @Override
     public void sendTaskCreationNotification(Task task) {
-        //todo: replace with actual email
         String recipientEmail = "ewecia.s@gmail.com";
 
         String content = emailContentBuilder.buildTaskCreationContent(task);
@@ -40,7 +39,6 @@ public class EmailNotificationService implements NotificationService {
      */
     @Override
     public void sendTaskReminderNotification(Task task) {
-        //todo: replace with actual email
         String recipientEmail = "ewecia.s@gmail.com";
 
         String content = emailContentBuilder.buildTaskReminderContent(task);
