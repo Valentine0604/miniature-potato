@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private long id;
 
     @Column(nullable = false)
     @NotNull
