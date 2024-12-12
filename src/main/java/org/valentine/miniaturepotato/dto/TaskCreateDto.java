@@ -26,14 +26,19 @@ public class TaskCreateDto {
 
     private Priority priority = Priority.LOW;
 
+    /**
+     * Converts this TaskCreateDto to a Task entity.
+     *
+     * @return a new Task entity with fields populated from this DTO.
+     */
     public Task toEntity(){
-        Task task = new Task();
-        task.setTitle(this.title);
-        task.setDescription(this.description);
-        task.setDueDate(this.dueDate);
-        task.setPriority(this.priority);
-        task.setCompleted(false);
-        return task;
+        return Task.builder()
+                .title(this.title)
+                .description(this.description)
+                .dueDate(this.dueDate)
+                .priority(this.priority)
+                .completed(false)
+                .build();
     }
 
 
